@@ -1,7 +1,6 @@
 from pages.main_page import MainPage
 from pages.feed_page import FeedPage
 from pages.login_page import LoginPage
-from selenium.webdriver.support.ui import WebDriverWait
 
 class TestFeed:
     def test_click_order_opens_modal(self, driver):
@@ -27,7 +26,7 @@ class TestFeed:
         main_page.close_modal()
 
         feed_page.open_page("/feed")
-        WebDriverWait(driver, 10).until(lambda d: feed_page.get_total_orders_count() != initial_count)
+        feed_page.wait_for_total_orders_change(initial_count)
         new_count = feed_page.get_total_orders_count()
         assert int(new_count) > int(initial_count)
 
@@ -48,6 +47,6 @@ class TestFeed:
         main_page.close_modal()
 
         feed_page.open_page("/feed")
-        WebDriverWait(driver, 10).until(lambda d: feed_page.get_today_orders_count() != initial_count)
+        feed_page.wait_for_today_orders_change(initial_count)
         new_count = feed_page.get_today_orders_count()
         assert int(new_count) > int(initial_count)

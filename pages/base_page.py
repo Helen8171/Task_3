@@ -1,6 +1,7 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+
 class BasePage:
     def __init__(self, driver):
         self.driver = driver
@@ -14,6 +15,7 @@ class BasePage:
 
     def wait_and_click(self, locator, timeout=10):
         wait = WebDriverWait(self.driver, timeout)
+
         def attempt_click(driver):
             try:
                 el = wait.until(EC.visibility_of_element_located(locator))
@@ -22,6 +24,7 @@ class BasePage:
                 return True
             except Exception:
                 return False
+
         wait.until(attempt_click)
 
     def set_text_to_element(self, locator, text, timeout=10):
@@ -52,3 +55,12 @@ class BasePage:
 
     def wait_for_url(self, url_part, timeout=10):
         WebDriverWait(self.driver, timeout).until(EC.url_contains(url_part))
+
+    def get_current_url(self):
+        return self.driver.current_url
+
+    def wait_until_text_changes(self, locator, initial_text, timeout=10):
+        WebDriverWait(self.driver, timeout).until(lambda d: self.get_text_from_element(locator) != initial_text)
+
+    def wait_for_element_invisibility(self, locator, timeout=10):
+        WebDriverWait(self.driver, timeout).until(EC.invisibility_of_element_located(locator))

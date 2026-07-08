@@ -14,7 +14,7 @@ class TestProfile:
         login_page.login(user_data["email"], user_data["password"])
         main_page.click_personal_account()
         main_page.wait_for_url("account")
-        assert "account" in driver.current_url
+        assert "account" in main_page.get_current_url()
 
     def test_go_to_order_history(self, driver, created_user):
         user_data, _ = created_user
@@ -29,7 +29,7 @@ class TestProfile:
         profile_page = ProfilePage(driver)
         profile_page.click_order_history()
         profile_page.wait_for_url("order-history")
-        assert "order-history" in driver.current_url
+        assert "order-history" in profile_page.get_current_url()
 
     def test_logout(self, driver, created_user):
         user_data, _ = created_user
@@ -44,4 +44,4 @@ class TestProfile:
         profile_page = ProfilePage(driver)
         profile_page.click_logout()
         profile_page.wait_for_url("login")
-        assert "login" in driver.current_url
+        assert "login" in profile_page.get_current_url()

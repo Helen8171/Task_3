@@ -1,15 +1,12 @@
 import pytest
 import requests
-import random
-import string
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.firefox.service import Service as FirefoxService
 from webdriver_manager.firefox import GeckoDriverManager
-
-BASE_URL = "https://stellarburgers.education-services.ru"
-API_URL = f"{BASE_URL}/api"
+from data import BASE_URL, API_URL
+from helpers import generate_random_string
 
 
 @pytest.fixture(params=["chrome", "firefox"])
@@ -27,10 +24,6 @@ def driver(request):
     yield driver
 
     driver.quit()
-
-
-def generate_random_string(length=10):
-    return ''.join(random.choices(string.ascii_lowercase, k=length))
 
 
 @pytest.fixture

@@ -8,14 +8,14 @@ class TestMainFunctionality:
         main_page.open_page("/login")
         main_page.click_constructor()
         main_page.wait_for_url("/")
-        assert driver.current_url == f"{main_page.base_url}/"
+        assert main_page.get_current_url() == f"{main_page.base_url}/"
 
     def test_go_to_order_feed(self, driver):
         main_page = MainPage(driver)
         main_page.open_page("/")
         main_page.click_order_feed()
         main_page.wait_for_url("feed")
-        assert "feed" in driver.current_url
+        assert "feed" in main_page.get_current_url()
 
     def test_ingredient_modal_opens(self, driver):
         main_page = MainPage(driver)

@@ -10,14 +10,14 @@ class TestForgotPassword:
         login_page = LoginPage(driver)
         login_page.click_forgot_password()
         login_page.wait_for_url("forgot-password")
-        assert "forgot-password" in driver.current_url
+        assert "forgot-password" in login_page.get_current_url()
 
     def test_input_email_and_restore(self, driver):
         forgot_page = ForgotPasswordPage(driver)
         forgot_page.open_page("/forgot-password")
         forgot_page.enter_email_and_click_restore("test@yandex.ru")
         forgot_page.wait_for_url("reset-password")
-        assert "reset-password" in driver.current_url
+        assert "reset-password" in forgot_page.get_current_url()
 
     def test_show_password_makes_field_active(self, driver):
         forgot_page = ForgotPasswordPage(driver)
